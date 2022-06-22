@@ -51,6 +51,7 @@ if(Auth::check()){
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ui/calendar.css') }}" rel="stylesheet">
     @yield('template_linked_css')
 </head>
 
@@ -130,6 +131,15 @@ if(Auth::check()){
             </li>
 
             <?php endif;?>
+                <li  class="nav-item" data-toggle="tooltip" data-placement="right" title="Заявки">
+                    <a class="nav-link nav-link-collapse {{ Request::is('*/requests*') ? '' : 'collapsed'  }}" data-toggle="collapse" href="#requests" data-parent="#exampleAccordion"><i class="fa fa-wrench fa-lg fa-fw sidebar-icon"></i>  <span class="nav-link-text">Заявки</span> <span class="arrow"></span></a>
+                    <ul class="sidenav-second-level collapse {{ Request::is('*/requests*') ? 'show' : ''  }}" id="requests">
+                        <li><a {{ Request::is('*/requests') ? 'class=active' : ''  }} href="<?= route($prefix.'.requests') ?>"><i class="fa fa-angle-double-right"></i>Main</a></li>
+                        <li><a {{ Request::is('*/requests/tech*') ? 'class=active' : ''  }} href="<?= route($prefix.'.requests.query',  ['query' => 'tech']) ?>"><i class="fa fa-angle-double-right"></i>Tech</a></li>
+                        <li><a {{ Request::is('*/requests/auto*') ? 'class=active' : ''  }} href="<?= route($prefix.'.requests.query', ['query' => 'auto']) ?>"><i class="fa fa-angle-double-right"></i>Auto</a></li>
+                        <li><a {{ Request::is('*/requests/home*') ? 'class=active' : ''  }} href="<?= route($prefix.'.requests.query', ['query' => 'home']) ?>"><i class="fa fa-angle-double-right"></i>Home</a></li>
+                    </ul>
+                </li>
 
             @if(Auth::user()->canDo($prefix.'.users'))
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" >

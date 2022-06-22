@@ -18,7 +18,9 @@ class UrlListController extends Controller
      */
     public function index()
     {
-        $urls = UrlList::all()->toArray();
+        $urls = UrlList::where('hidden', 0)
+	        ->get()
+	        ->toArray();
         return view('url_list.index', compact('urls'));
     }
 
@@ -64,6 +66,20 @@ class UrlListController extends Controller
         $urls = UrlList::find($id);
         return view('url_list.edit',compact('urls','id'));
     }
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function hide($id)
+	{
+		$url = UrlList::find($id);
+		$url->hidden = 1;
+		$url->save();
+		return redirect('url-list')->with('success','url has been hidden');
+	}
 
     /**
      * Update the specified resource in storage.

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\VarDumper\VarDumper;
+use App\Http\Services\GoogleAnalytics;
 
 /**
  * Class AnalyticsController
@@ -26,7 +27,7 @@ class AnalyticsController extends Controller
     {
         $this->middleware(function ($request, $next)
         {
-            $this->token = $this->getAccessToken();
+            $this->token = GoogleAnalytics::getToken();
             $this->access = [
                 'fixinglist'=>'168329090',
                 'ustabor'=>'168341712',
@@ -502,6 +503,8 @@ class AnalyticsController extends Controller
             'token'=>$this->token['access_token'],
             'id'=>$id,
             'query'=>$site,
+			'routePrefix' => $routePrefix,
+			'routeName' => $routeName,
             'segments'=>$segments,
             'routeName'=>str_replace('.','',str_replace('query','',str_replace($routePrefix,'',$routeName)))
         ]);
@@ -590,42 +593,6 @@ class AnalyticsController extends Controller
             'query'=>$query,
             'prefix'=>$this->prefix,
         ]);
-    }
-
-    /**
-     * @return array
-     */
-    private function getAccessToken(){
-
-        $token = Session::get('google_analytics') ?? null ;
-        $client = new \Google_Client();
-        if(empty($token)){
-            $token = $this->generateAccessToken($client);
-            if(!empty($token)){
-                session(['google_analytics' => $token]);
-                Session::save();
-            }
-        }else{
-            $client->setAccessToken($token);
-            if($client->isAccessTokenExpired()){
-                $token = $this->generateAccessToken($client);
-            }
-        }
-        return $token;
-    }
-
-    /**
-     * @param $client
-     * @return mixed
-     */
-    private function generateAccessToken($client){
-        $client->setApplicationName("Google Analytics");
-        $client->setAuthConfig(storage_path(env('GOOGLE_SERVICE_CLIENT_JSON')));
-        $client->setScopes(['https://www.googleapis.com/auth/analytics.readonly']);
-
-        $client->refreshTokenWithAssertion();
-        $token = $client->getAccessToken();
-        return $token;
     }
 
     protected function getSegments(string $query, string $site, string $routePrefix){

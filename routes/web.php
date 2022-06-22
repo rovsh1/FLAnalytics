@@ -49,6 +49,9 @@ Route::group(array('prefix' => 'fixinglist', 'middleware' => 'auth'), function()
     Route::get('master/filter',  ['as' => 'fixinglist.master.filter', 'uses' => 'AnalyticsController@catalogFilter']);
     Route::get('master/{query}',  ['as' => 'fixinglist.master.query','uses' => 'AnalyticsController@catalog']);
 
+	Route::get('requests',  ['as' => 'fixinglist.requests', 'uses' => 'RequestController@index'])->middleware('permission:fixinglist.catalog.main');
+	Route::get('requests/api',  ['as' => 'fixinglist.requests.api', 'uses' => 'RequestController@api']);
+	Route::get('requests/{query}',  ['as' => 'fixinglist.requests.query','uses' => 'RequestController@index']);
 
     Route::get('mobile',  ['as' => 'fixinglist.mobile','uses' => 'AnalyticsController@mobile'])->middleware('permission:fixinglist.mobile');
     Route::get('mobile/{query}',  ['as' => 'fixinglist.mobile.query','uses' => 'AnalyticsController@mobile'])->middleware('permission:fixinglist.mobile');
@@ -91,7 +94,9 @@ Route::group(array('prefix' => 'ustabor', 'middleware' => 'auth'), function()
     Route::get('master/filter',  ['as' => 'ustabor.master.filter', 'uses' => 'AnalyticsController@catalogFilter']);
     Route::get('master/{query}',  ['as' => 'ustabor.master.query','uses' => 'AnalyticsController@catalog']);
 
-
+	Route::get('requests',  ['as' => 'ustabor.requests', 'uses' => 'RequestController@index'])->middleware('permission:ustabor.catalog.main');
+	Route::get('requests/api',  ['as' => 'ustabor.requests.api', 'uses' => 'RequestController@api']);
+	Route::get('requests/{query}',  ['as' => 'ustabor.requests.query','uses' => 'RequestController@index']);
 
     Route::get('mobile',  ['as' => 'ustabor.mobile','uses' => 'AnalyticsController@mobile'])->middleware('permission:ustabor.mobile');
     Route::get('mobile/{query}',  ['as' => 'ustabor.mobile.query','uses' => 'AnalyticsController@mobile'])->middleware('permission:ustabor.mobile');

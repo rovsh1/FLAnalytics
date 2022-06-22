@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class UrlList extends Model
 {
     //
-    protected $fillable = ['name','url'];
+    protected $fillable = ['name','url','hidden'];
 }

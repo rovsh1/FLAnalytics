@@ -17,7 +17,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Url</th>
-                <th colspan="2">Action</th>
+                <th colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -26,6 +26,7 @@
                     <td>{{$item['id']}}</td>
                     <td>{{$item['name']}}</td>
                     <td>{{$item['url']}}</td>
+                    <td><a href="{{action('UrlListController@hide', $item['id'])}}" class="btn btn-warning">Hide</a></td>
                     <td><a href="{{action('UrlListController@edit', $item['id'])}}" class="btn btn-warning">Edit</a></td>
                     <td>
                         <form action="{{action('UrlListController@destroy', $item['id'])}}" method="post">

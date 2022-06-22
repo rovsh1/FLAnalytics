@@ -2,6 +2,13 @@ table th{
 	cursor: pointer;
 	color:#0269c3;
 }
+body{font-size:13px;}
+*{outline:none;}
+:root{
+	--background:#F8FAFB;
+	--main:#00ab2d;
+	--shadow-popup:0 6px 24px 0 rgba(92,107,192,0.2);
+}
 
 @media (min-width: 767px) {
 	.nav-side-menu .menu-list .menu-content {
@@ -45,6 +52,13 @@ table th{
 	-webkit-animation-delay: -0.8s;
 	animation-delay: -0.8s;
 }
+
+.loading{position:relative;}
+.loading:before{content:'';display:block;text-align:center;position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;background:rgba(255, 255, 255, .4) url("/images/preload.svg") 50% 50% no-repeat;background-size:48px 48px;}
+
+.column-count{text-align:right;}
+.column-empty{opacity:.3;}
+table .loading:before{background-size:32px 32px;background-color:transparent;}
 
 @-webkit-keyframes sk-stretchdelay {
 	0%, 40%, 100% { -webkit-transform: scaleY(0.4) }

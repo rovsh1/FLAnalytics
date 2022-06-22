@@ -343,7 +343,6 @@ $filter = '';
                 'end-date': end_date2
             };
 
-
             var dateRangeSelectorCompareChanel1 = new gapi.analytics.ext.DateRangeSelector({
                 container: 'date-range-selector-chanel-1-container-compare'
             })
@@ -388,7 +387,8 @@ $filter = '';
                 dateRangeSelectorCompareChanel2.setValues(); dateRangeSelectorCompareChanel2.setMinMax();
                 urlHistory('start-date2',data["start-date"]);
                 urlHistory('end-date2',data["end-date"]);
-                renderTable();
+                //renderTable();
+                renderUrldata();
             });
 
 
